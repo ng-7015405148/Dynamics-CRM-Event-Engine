@@ -10,6 +10,15 @@ namespace SalesPlugins.Controllers
 {
     public class OpportunityController : Controller, IPlugin
     {
+        public OpportunityController()
+        {
+            ControllerEntitySchemaName = "opportunity";
+        }
+
+        public override void CreateAction_PreValidation(IPluginExecutionContext context, IOrganizationService service, Entity entity)
+        {
+            throw new NotImplementedException();
+        }
 
         public override void UpdateAction_PreValidation(IPluginExecutionContext context, IOrganizationService service, Entity entity)
         {

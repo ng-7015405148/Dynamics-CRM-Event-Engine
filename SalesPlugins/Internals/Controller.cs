@@ -10,11 +10,20 @@ namespace SalesPlugins.Internals
 {
     public class Controller
     {
+        public string ControllerEntitySchemaName { get; set; }
+
         public void Execute(IServiceProvider serviceProvider)
         {
+
+            if (string.IsNullOrEmpty(ControllerEntitySchemaName))
+                throw new InvalidPluginExecutionException("Please define the Controller Name");
+
             ITracingService tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
 
             IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+
+            if (context.PrimaryEntityName != ControllerEntitySchemaName)
+                throw new InvalidPluginExecutionException("EntityController is regsitered on different Entity, other than specified");
 
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
             {

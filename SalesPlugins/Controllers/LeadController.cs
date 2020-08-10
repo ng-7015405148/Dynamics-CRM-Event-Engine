@@ -10,6 +10,10 @@ namespace SalesPlugins.Controllers
 {
     public class LeadController : Controller, IPlugin
     {
+        public LeadController()
+        {
+            ControllerEntitySchemaName = "lead";
+        }
 
         public override void CreateAction_PreValidation(IPluginExecutionContext context, IOrganizationService service, Entity entity)
         {
